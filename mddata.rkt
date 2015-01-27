@@ -9,11 +9,12 @@
 (define-runtime-path test.md "./subject.markdown")
 (define xs (parse-markdown (file->string test.md #:mode 'text)
                           test-footnote-prefix))
-
-(pretty-print xs)
+;;(pretty-print xs)
 
 ;; 2. Optionally, process the xexprs somehow:
 ;; ... nom nom nom ...
+
+xs
 
 ;; 3. Splice them into an HTML `xexpr` and...
 ;; 4. Convert to HTML text:
