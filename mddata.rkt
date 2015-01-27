@@ -1,24 +1,22 @@
 #lang racket
 
-(require markdown)
+(require markdown
+        racket/runtime-path)
 
-;; 1. Parse string to a list of xexprs
-(define xs (parse-markdown "I am _emph_ and I am **strong**."))
+(define test-footnote-prefix 'unit-test) ;fixed, not from (gensym)
+
+;; 1. Parse Markdown source file to list of xexprs.
+(define-runtime-path test.md "./subject.markdown")
+(define xs (parse-markdown (file->string test.md #:mode 'text)
+                          test-footnote-prefix))
 
 (pretty-print xs)
-; =>
-'((p () "I am " (em () "emph") " and I am " (strong () "strong") "."))
 
 ;; 2. Optionally, process the xexprs somehow:
 ;; ... nom nom nom ...
 
 ;; 3. Splice them into an HTML `xexpr` and...
 ;; 4. Convert to HTML text:
-(display-xexpr `(html ()
-                      (head ())
-                      (body () ,@xs)))
-; =>
-; <html>
-;  <head></head>
-;  <body>
-;   <p>I am <em>emph</em> and I am <strong>strong</strong>.</p></body></html>
+;;(display-xexpr `(html ()
+;;                     (head ())
+;;                     (body () ,@xs)))
