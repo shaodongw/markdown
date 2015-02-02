@@ -48,7 +48,12 @@
 (define (content section)
   (third section))
 
-(pretty-print (split-to-subjects xs))
+(for-each 
+ (lambda (item)
+   (pretty-print item)
+   (display "\n===================\n"))
+ (split-to-subjects xs))
+         
   
 
  ;; 4. Convert to HTML text:
