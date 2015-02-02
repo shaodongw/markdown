@@ -28,13 +28,15 @@
   (cond
     [(empty? xs) empty]
     [(empty? (rest xs)) empty]
-    [(is-h1? (second xs)) (rest xs)]))
+    [(is-h1? (second xs))  (rest xs)]
+    [else (rest-subject (rest xs))]))
+    
 
 (define (is-h1? piece)
   (equal? (first piece) 'h1))
 
-(pretty-print (first-subject xs))
-;(pretty-print (rest-subject xs))
+;(pretty-print (first-subject xs))
+(pretty-print (rest-subject (rest-subject (rest-subject (rest-subject xs)))))
 
 
 
