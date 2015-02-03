@@ -18,7 +18,7 @@
   (define (fst-sec is-sep? xs block)
     (cond
       [(empty? xs) empty]
-      [(empty? (rest xs)) (first xs)]
+      [(empty? (rest xs)) (cons (first xs) empty)]
       [(is-sep? (second xs)) (cons (first xs) empty)]
       [else (cons (first xs) (fst-sec is-sep? (rest xs) block))]))
   (fst-sec is-sep? xs empty))
@@ -76,7 +76,9 @@
   (compile section (make-hash)))
 
 ;(pretty-print (compile-to-dictionary (first sections)))
+
 ;(pretty-print  (all-sections subjects))
+
 (for ([i subjects])
   (display "\n*****************************\n")
   (pretty-print i)
@@ -86,4 +88,4 @@
     (pretty-print j)
     (display "\n----------------------------------------\n")))
 
-
+; (pretty-print (split-to-subjects xs))
