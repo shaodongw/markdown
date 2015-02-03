@@ -69,23 +69,30 @@
 
 (define (compile-to-dictionary section)
   (define (compile sec ht)
-    (let ([key (third (first section))]
-          [val (rest section)])
+    (let* ([sec-body (rest sec)]
+           [key (third (first sec-body))]
+           [val (rest sec-body)])
       (hash-set! ht key val)
       ht))
   (compile section (make-hash)))
 
-;(pretty-print (compile-to-dictionary (first sections)))
 
-;(pretty-print  (all-sections subjects))
+(for* ([subject (all-sections subjects)]
+       [section subject]
+       [paragraph section])
+  (pretty-print paragraph))
 
-(for ([i subjects])
-  (display "\n*****************************\n")
-  (pretty-print i)
-  (display "\n=============================\n")
-  (for ([j (one-subject-to-sections i)])
-    (display "\n++++++++++++++++++++++\n")
-    (pretty-print j)
-    (display "\n----------------------------------------\n")))
+
+;(pretty-print (compile-to-dictionary (first subjects)))
+
+
+;(for ([i subjects])
+;  (display "\n*****************************\n")
+;  (pretty-print i)
+;  (display "\n=============================\n")
+;  (for ([j (one-subject-to-sections i)])
+;    (display "\n++++++++++++++++++++++\n")
+;    (pretty-print j)
+;    (display "\n----------------------------------------\n")))
 
 ; (pretty-print (split-to-subjects xs))
