@@ -2,9 +2,7 @@
 
 (require "subjects.rkt")
 
-
 subjects
-
 
 ;; Splice subject into sections and combine them into key-value pair.
 
