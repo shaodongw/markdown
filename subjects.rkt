@@ -67,23 +67,33 @@
   (map one-subject-to-sections subjects))
 
 
-(define (compile-to-dictionary section)
-  (define (compile sec ht)
-    (let* ([sec-body (rest sec)]
-           [key (third (first sec-body))]
-           [val (rest sec-body)])
-      (hash-set! ht key val)
-      ht))
-  (compile section (make-hash)))
+;(define (compile-to-dictionary subject)
+;  (define (compile subj ht)
+;    (for ([section subj])
+;      (display "\n*******\n")
+;      (pretty-print section)
+;      (display "\n=======\n")
+;      (cond
+;        [(is-h2? section) (hash-set! ht (third section) (rest subj))]
+;        [else #f]))
+;    ht)
+;  (compile subject (make-hash)))
+
+(define (compile-to-dictionary subject)
+  (define (compile subj ht)
+    (cond
+      [(empty? subj) #t]
+      [(is-h1? (first subj)) (compile (rest subj) ht)]
+      [else (begin
+              (hash-set! ht (third (first subj)) (rest (first-section subj)))
+              (compile (rest-section subj) ht))])
+    ht)
+  (compile subject (make-hash)))
 
 
-(for* ([subject (all-sections subjects)]
-       [section subject]
-       [paragraph section])
-  (pretty-print paragraph))
 
 
-;(pretty-print (compile-to-dictionary (first subjects)))
+(pretty-print (compile-to-dictionary (first subjects)))
 
 
 ;(for ([i subjects])
